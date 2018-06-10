@@ -592,7 +592,7 @@ module.exports = {
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-06-05 02:14:28" itemprop="dateModified" datetime="2018-06-05T02:14:28-06:00">2018-06-05</time>
+                <time title="Modified: 2018-06-07 23:13:26" itemprop="dateModified" datetime="2018-06-07T23:13:26-06:00">2018-06-07</time>
               
             
           </span>
@@ -649,7 +649,35 @@ module.exports = {
 <li><p>最优化Optimization。最优化是寻找能使得损失函数值最小化的参数W的过程。</p>
 </li>
 </ul>
-<h1 id="损失函数可视化"><a href="#损失函数可视化" class="headerlink" title="损失函数可视化"></a>损失函数可视化</h1>
+<h1 id="损失函数可视化"><a href="#损失函数可视化" class="headerlink" title="损失函数可视化"></a>损失函数可视化</h1><ul>
+<li><p>在一维尺度上 $$L(W+aW_1)$$ x轴是a， y轴是loss function</p>
+</li>
+<li><p>在二维尺度上 $$L(W+aW_1+bW_2)$$, a,b 表达x轴, y轴， loss function 用颜色表示</p>
+</li>
+</ul>
+<p>单独的损失函数表示：</p>
+<p><img src="https://www.zhihu.com/equation?tex=Li%3D%5Csum_%7Bj%5Cnot%3Dy_i%7D%5Bmax%280%2Cw%5ET_jx_i-w%5ET_%7By_i%7Dx_i%2B1%29%5D" alt=""></p>
+<p>$$w_j$$ 如果对应分类正确即是负号，错误即是正号 $$L = \sumL/n$$</p>
+<p><img src="https://pic3.zhimg.com/80/3f6fbcd487b1c214e8fea1ea66eb413e_hd.jpg" alt=""></p>
+<p>SVM的损失函数是一种凸函数，可以学习一下如何高效最小化凸函数，在这种损失函数会有一些不可导的点（kinks）</p>
+<p>两个新概念： </p>
+<ul>
+<li>梯度？ 次梯度？未来学习点</li>
+</ul>
+<h1 id="最优化-Optimization"><a href="#最优化-Optimization" class="headerlink" title="最优化 Optimization"></a>最优化 Optimization</h1><p>对于神经网络的最优化策略有：</p>
+<h2 id="随即搜索-最差劲的搜索方案（base-line）"><a href="#随即搜索-最差劲的搜索方案（base-line）" class="headerlink" title="随即搜索 最差劲的搜索方案（base line）"></a>随即搜索 最差劲的搜索方案（base line）</h2><pre><code># 假设X_train的每一列都是一个数据样本（比如3073 x 50000）
+# 假设Y_train是数据样本的类别标签（比如一个长50000的一维数组）
+# 假设函数L对损失函数进行评价
+
+bestloss = float(&quot;inf&quot;) # Python assigns the highest possible float value
+for num in xrange(1000):
+  W = np.random.randn(10, 3073) * 0.0001 # generate random parameters
+  loss = L(X_train, Y_train, W) # get the loss over the entire training set
+  if loss &lt; bestloss: # keep track of the best solution
+    bestloss = loss
+    bestW = W
+  print &apos;in attempt %d the loss was %f, best %f&apos; % (num, loss, bestloss)
+</code></pre>
           
         
       
