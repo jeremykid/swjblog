@@ -12,7 +12,7 @@ timezone: America/Edmonton
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: git://jeremykid.github.io/
+url: http://jeremykid.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -52,7 +52,7 @@ menu:
   home: /
   archives: /archives
   about: /about
-  #categories: /categories
+  categories: /categories
   tags: /tags
   #commonweal: /404.html
 
@@ -115,6 +115,13 @@ baidu_analytics:
 
 # 站点起始时间
 since: 2016
+
+# 本地搜索
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 
 # Duoshuo ShortName
 # duoshuo_shortname: jeremykidgithub
