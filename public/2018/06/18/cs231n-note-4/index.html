@@ -108,28 +108,29 @@
 
 
 
-  <meta name="description" content="Reference： https://zhuanlan.zhihu.com/p/20894041 https://zhuanlan.zhihu.com/p/20900216  图像分类颜色channel 有三个 red green blue， RGB 流程就是 输入 -&amp;gt; 学习 -&amp;gt; 评价 K Nearest Neighbor 分类器k 越高 generalization 能力越好 用">
+  <meta name="description" content="反向传播 Introduction:反向传播是利用链式法则递归计算表达式的梯度的方法。 根据函数 f(x), 求关于f 关于 x的梯度 gradient  偏导数（我的理解就是当对其中一个param 求导的时候视其他的params为const， 含义为当这个param 增加的时候 对f 的增加量的比值） 链式法则Chain rule  这下面这个sample给的真的是清楚 x = -2; y =">
 <meta name="keywords" content="Machine_Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cs231n note - 1">
-<meta property="og:url" content="http://jeremykid.github.io/2018/05/20/cs231n-note-1/index.html">
+<meta property="og:title" content="cs231n-note-4">
+<meta property="og:url" content="http://jeremykid.github.io/2018/06/18/cs231n-note-4/index.html">
 <meta property="og:site_name" content="Weijie Sun Blog">
-<meta property="og:description" content="Reference： https://zhuanlan.zhihu.com/p/20894041 https://zhuanlan.zhihu.com/p/20900216  图像分类颜色channel 有三个 red green blue， RGB 流程就是 输入 -&amp;gt; 学习 -&amp;gt; 评价 K Nearest Neighbor 分类器k 越高 generalization 能力越好 用">
+<meta property="og:description" content="反向传播 Introduction:反向传播是利用链式法则递归计算表达式的梯度的方法。 根据函数 f(x), 求关于f 关于 x的梯度 gradient  偏导数（我的理解就是当对其中一个param 求导的时候视其他的params为const， 含义为当这个param 增加的时候 对f 的增加量的比值） 链式法则Chain rule  这下面这个sample给的真的是清楚 x = -2; y =">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_1%28I_1%2CI_2%29%3D%5Csum_p%7CI%5Ep_1-I%5Ep_2%7C">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_2%28I_1%2CI_2%29%3D%5Csqrt%7B+%5Csum_p%28I%5Ep_1-I%5Ep_2%29%5E2%7D">
-<meta property="og:updated_time" content="2018-05-28T02:25:25.950Z">
+<meta property="og:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/c86221324a9d066ca28310ee772941748a5f370f">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdisplaystyle%5Cfrac%7B%5Cpartial+f%7D%7B%5Cpartial+x%7D%3D%5Cfrac%7B%5Cpartial+f%7D%7B%5Cpartial+q%7D%5Cfrac%7B%5Cpartial+q%7D%7B%5Cpartial+x%7D">
+<meta property="og:image" content="https://pic4.zhimg.com/80/213da7f66594510b45989bd134fc2d8b_hd.jpg">
+<meta property="og:updated_time" content="2018-06-24T01:42:50.815Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cs231n note - 1">
-<meta name="twitter:description" content="Reference： https://zhuanlan.zhihu.com/p/20894041 https://zhuanlan.zhihu.com/p/20900216  图像分类颜色channel 有三个 red green blue， RGB 流程就是 输入 -&amp;gt; 学习 -&amp;gt; 评价 K Nearest Neighbor 分类器k 越高 generalization 能力越好 用">
-<meta name="twitter:image" content="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_1%28I_1%2CI_2%29%3D%5Csum_p%7CI%5Ep_1-I%5Ep_2%7C">
+<meta name="twitter:title" content="cs231n-note-4">
+<meta name="twitter:description" content="反向传播 Introduction:反向传播是利用链式法则递归计算表达式的梯度的方法。 根据函数 f(x), 求关于f 关于 x的梯度 gradient  偏导数（我的理解就是当对其中一个param 求导的时候视其他的params为const， 含义为当这个param 增加的时候 对f 的增加量的比值） 链式法则Chain rule  这下面这个sample给的真的是清楚 x = -2; y =">
+<meta name="twitter:image" content="https://wikimedia.org/api/rest_v1/media/math/render/svg/c86221324a9d066ca28310ee772941748a5f370f">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jeremykid.github.io/2018/05/20/cs231n-note-1/"/>
+  <link rel="canonical" href="http://jeremykid.github.io/2018/06/18/cs231n-note-4/"/>
 
 
 
@@ -139,7 +140,7 @@
   };
 </script>
 
-  <title>cs231n note - 1 | Weijie Sun Blog</title>
+  <title>cs231n-note-4 | Weijie Sun Blog</title>
   
 
 
@@ -344,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jeremykid.github.io/2018/05/20/cs231n-note-1/">
+    <link itemprop="mainEntityOfPage" href="http://jeremykid.github.io/2018/06/18/cs231n-note-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Weijie Sun">
@@ -361,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">cs231n note - 1
+          <h1 class="post-title" itemprop="name headline">cs231n-note-4
               
             
           </h1>
@@ -386,7 +387,7 @@
                 
               
 
-              <time title="Created: 2018-05-20 17:26:44" itemprop="dateCreated datePublished" datetime="2018-05-20T17:26:44-06:00">2018-05-20</time>
+              <time title="Created: 2018-06-18 22:23:21" itemprop="dateCreated datePublished" datetime="2018-06-18T22:23:21-06:00">2018-06-18</time>
             
 
             
@@ -403,7 +404,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-05-27 20:25:25" itemprop="dateModified" datetime="2018-05-27T20:25:25-06:00">2018-05-27</time>
+                <time title="Modified: 2018-06-23 19:42:50" itemprop="dateModified" datetime="2018-06-23T19:42:50-06:00">2018-06-23</time>
               
             
           </span>
@@ -417,10 +418,10 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/20/cs231n-note-1/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/18/cs231n-note-4/#comments" itemprop="discussionUrl">
                 
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/05/20/cs231n-note-1/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/18/cs231n-note-4/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -448,23 +449,19 @@
       
 
       
-        <p>Reference：</p>
-<p><a href="https://zhuanlan.zhihu.com/p/20894041" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/20894041</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/20900216" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/20900216</a> </p>
-<h1 id="图像分类"><a href="#图像分类" class="headerlink" title="图像分类"></a>图像分类</h1><p>颜色channel 有三个 red green blue， RGB</p>
-<p>流程就是 输入 -&gt; 学习 -&gt; 评价</p>
-<h1 id="K-Nearest-Neighbor-分类器"><a href="#K-Nearest-Neighbor-分类器" class="headerlink" title="K Nearest Neighbor 分类器"></a>K Nearest Neighbor 分类器</h1><p>k 越高 generalization 能力越好</p>
-<h2 id="用距离来分类"><a href="#用距离来分类" class="headerlink" title="用距离来分类"></a>用距离来分类</h2><p>L1范数 和 L2范数 </p>
-<p>L1 </p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_1%28I_1%2CI_2%29%3D%5Csum_p%7CI%5Ep_1-I%5Ep_2%7C" alt=""></p>
-<p>L2</p>
-<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle+d_2%28I_1%2CI_2%29%3D%5Csqrt%7B+%5Csum_p%28I%5Ep_1-I%5Ep_2%29%5E2%7D" alt=""></p>
-<p><code>distances = np.sqrt(np.sum(np.square(self.Xtr - X[i,:]), axis = 1))</code></p>
-<p>L1和L2比较。。在面对两个向量之间的差异时，L2比L1更加不能容忍这些差异。也就是说，相对于1个巨大的差异，L2距离更倾向于接受多个中等程度的差异。L1和L2都是在p-norm常用的特殊形式。</p>
-<h2 id="hyperparameter-超参数，需要去测试调整"><a href="#hyperparameter-超参数，需要去测试调整" class="headerlink" title="hyperparameter: 超参数，需要去测试调整"></a>hyperparameter: 超参数，需要去测试调整</h2><h2 id="validation-set-测试集-只能使用一次"><a href="#validation-set-测试集-只能使用一次" class="headerlink" title="validation set: 测试集 只能使用一次"></a>validation set: 测试集 只能使用一次</h2><h2 id="Cross-validation-train-lt-gt-test"><a href="#Cross-validation-train-lt-gt-test" class="headerlink" title="Cross validation: train &lt;-&gt; test"></a>Cross validation: train &lt;-&gt; test</h2><p>##k Nearest Neighbor 优缺点:</p>
-<p>Advantange:易于理解，实现简单。</p>
-<p>Disadvantage: 算法的训练不需要花时间，因为其训练过程只是将训练集数据存储起来。然而测试要花费大量时间计算，因为每个测试图像需要和所有存储的训练图像进行比较，这显然是一个缺点。在实际应用中，我们关注测试效率远远高于训练效率</p>
-
+        <p>反向传播</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h1><p>反向传播是利用链式法则递归计算表达式的梯度的方法。 根据函数 f(x), 求关于f 关于 x的梯度 gradient</p>
+<p><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/c86221324a9d066ca28310ee772941748a5f370f" alt=""></p>
+<h2 id="偏导数"><a href="#偏导数" class="headerlink" title="偏导数"></a>偏导数</h2><p>（我的理解就是当对其中一个param 求导的时候视其他的params为const， 含义为当这个param 增加的时候 对f 的增加量的比值）</p>
+<h2 id="链式法则"><a href="#链式法则" class="headerlink" title="链式法则"></a>链式法则</h2><p>Chain rule</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdisplaystyle%5Cfrac%7B%5Cpartial+f%7D%7B%5Cpartial+x%7D%3D%5Cfrac%7B%5Cpartial+f%7D%7B%5Cpartial+q%7D%5Cfrac%7B%5Cpartial+q%7D%7B%5Cpartial+x%7D" alt=""></p>
+<p>这下面这个sample给的真的是清楚</p>
+<p>x = -2; y = 5; z = -4</p>
+<p>f(x,y,z) = (x+y)z</p>
+<p><img src="https://pic4.zhimg.com/80/213da7f66594510b45989bd134fc2d8b_hd.jpg" alt=""></p>
+<p>绿色的从输入端到输出端 为前向传播</p>
+<p>红色的从输出端到输入端 为反向传播</p>
+<h2 id="反向传播的理解"><a href="#反向传播的理解" class="headerlink" title="反向传播的理解"></a>反向传播的理解</h2>
       
     </div>
 
@@ -497,8 +494,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/20/Machine-Learning-Notes-1/" rel="next" title="Machine Learning Notes - 1">
-                <i class="fa fa-chevron-left"></i> Machine Learning Notes - 1
+              <a href="/2018/06/04/sequelize-cli-NodeJs-Learning-Notes/" rel="next" title="sequelize cli NodeJs Learning Notes">
+                <i class="fa fa-chevron-left"></i> sequelize cli NodeJs Learning Notes
               </a>
             
           </div>
@@ -507,8 +504,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/21/cs231n-note-2/" rel="prev" title="cs231n note - 2">
-                cs231n note - 2 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/23/有趣的生物灵魂/" rel="prev" title="有趣的生物灵魂">
+                有趣的生物灵魂 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -699,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图像分类"><span class="nav-number">1.</span> <span class="nav-text">图像分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-Nearest-Neighbor-分类器"><span class="nav-number">2.</span> <span class="nav-text">K Nearest Neighbor 分类器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用距离来分类"><span class="nav-number">2.1.</span> <span class="nav-text">用距离来分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hyperparameter-超参数，需要去测试调整"><span class="nav-number">2.2.</span> <span class="nav-text">hyperparameter: 超参数，需要去测试调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#validation-set-测试集-只能使用一次"><span class="nav-number">2.3.</span> <span class="nav-text">validation set: 测试集 只能使用一次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cross-validation-train-lt-gt-test"><span class="nav-number">2.4.</span> <span class="nav-text">Cross validation: train &lt;-&gt; test</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#偏导数"><span class="nav-number">1.1.</span> <span class="nav-text">偏导数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链式法则"><span class="nav-number">1.2.</span> <span class="nav-text">链式法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播的理解"><span class="nav-number">1.3.</span> <span class="nav-text">反向传播的理解</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -853,9 +850,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://jeremykid.github.io/2018/05/20/cs231n-note-1/';
-        this.page.identifier = '2018/05/20/cs231n-note-1/';
-        this.page.title = 'cs231n note - 1';
+        this.page.url = 'http://jeremykid.github.io/2018/06/18/cs231n-note-4/';
+        this.page.identifier = '2018/06/18/cs231n-note-4/';
+        this.page.title = 'cs231n-note-4';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
