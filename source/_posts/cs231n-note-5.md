@@ -69,9 +69,54 @@ class Neuron(object):
 | Leaky ReLU | 同上，并且解决了ReLu单元死亡的问题 |  然而该激活函数在在不同任务中均有益处的一致性并没有特别清晰（不太懂） |
 | Maxout | 有以上所有的优点 |  参数过多 |
 
+## 神经网络结构
 
+最普通的层的类型是全连接层（fully-connected layer）
+
+- 命名规则 N层神经网络 = hidden layer + output layer
+
+- 输出层 大多用于表示分类评分值
+
+- 网络尺寸 标准主要有两个：一个是神经元的个数，另一个是参数的个数
+
+
+## 前向传播
+
+```
+	# 一个3层神经网络的前向传播:
+	f = lambda x: 1.0/(1.0 + np.exp(-x)) # 激活函数(用的sigmoid)
+	x = np.random.randn(3, 1) # 含3个数字的随机输入向量(3x1)
+	h1 = f(np.dot(W1, x) + b1) # 计算第一个隐层的激活数据(4x1)
+	h2 = f(np.dot(W2, h1) + b2) # 计算第二个隐层的激活数据(4x1)
+	out = np.dot(W3, h2) + b3 # 神经元输出(1x1)
+```
+
+神经网络最后一层通常是没有激活函数的, 得出一个实数值的评分
+
+## 表达能力
+
+至少拥有一个隐层(hidden)的神经网络是一个通用的近似器，神经网络可以近似任何连续函数。
+
+实践而言，构建更多层的神经网络所表达出来的函数不仅平滑，而且更容易学习（利用最优化）
+
+## 设置层的数量和尺寸
+
+![每层的神经元数目不同：只有一个隐层](https://pic4.zhimg.com/80/cf3fc543bf1dc81e2083530a4492b0ec_hd.jpg)
+
+更大的神经网络可以表达出更复杂的函数,但是缺点是过拟合(overfitting),只是重视数据在复杂情况中的分类，而忽略了潜在关系。
+
+这时候合适的layer可以在测试数据里获得更好的泛化(generalization)能力
+
+
+![不同正则化强度控制过拟合](https://pic3.zhimg.com/80/4f8af027d6059549d160199a1717df14_hd.jpg)
+
+然而, 防止神经网络过拟合的方法有很多(To learn), 选择其他过拟合的解决方法，而不应该去选择小的神经网络。
+
+这个是提供的测试的链接[convnetjs DEMO](https://cs.stanford.edu/people/karpathy/convnetjs/demo/classify2d.html)
 
 ## Reference
+
+[convnetjs DEMO](https://cs.stanford.edu/people/karpathy/convnetjs/demo/classify2d.html)
 
 [神经网络笔记1（上）](https://zhuanlan.zhihu.com/p/21462488)
 

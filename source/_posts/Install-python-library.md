@@ -86,3 +86,18 @@ Cheating sheet：[reference](https://github.com/eteplus/blog/issues/4)
 	import keras
 	#然后就显示tensorflow work on backend
 
+# pyecharts
+
+[github pyecharts](https://github.com/pyecharts/pyecharts)
+
+```
+	$ pip install pyecharts
+
+
+	$ pip install echarts-countries-pypkg
+	$ pip install echarts-china-provinces-pypkg
+	$ pip install echarts-china-cities-pypkg
+	$ pip install echarts-china-counties-pypkg
+	$ pip install echarts-china-misc-pypkg
+```
+$ pip install echarts-united-kingdom-pypkg
