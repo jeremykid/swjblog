@@ -12,7 +12,7 @@ timezone: America/Edmonton
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://jeremykid.github.io/
+url: https://jeremykid.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -26,6 +26,8 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - "Deep learning.html"
+  - "Reinforcement-Learning-Note-1.html"
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -80,7 +82,7 @@ deploy:
 
 # hexo sitemap 
 sitemap:
-path: sitemap.xml
+  path: sitemap.xml
 # baidusitemap:
 # path: baidusitemap.xml
 

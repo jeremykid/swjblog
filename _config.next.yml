@@ -1,0 +1,24 @@
+scheme: Muse
+
+menu:
+  home: / || home
+  about: /about/ || user
+  tags: /tags/ || tags
+  categories: /categories/ || th
+  archives: /archives/ || archive
+
+avatar:
+  url: /images/avatar.jpeg
+  rounded: false
+  rotated: false
+
+sidebar:
+  position: left
+  display: post
+
+local_search:
+  enable: true
+  trigger: auto
+  top_n_per_article: 1
+  unescape: false
+  preload: false
