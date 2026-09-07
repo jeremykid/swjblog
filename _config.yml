@@ -125,6 +125,13 @@ search:
   format: html
   limit: 10000
 
+# Server-side MathJax rendering for posts with `mathjax: true`.
+mathjax:
+  tags: none
+  single_dollars: true
+  append_css: true
+  every_page: false
+
 # Duoshuo ShortName
 # duoshuo_shortname: jeremykidgithub
 # =============================================================================

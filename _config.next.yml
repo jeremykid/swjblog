@@ -22,3 +22,10 @@ local_search:
   top_n_per_article: 1
   unescape: false
   preload: false
+
+# Math is rendered at build time by hexo-filter-mathjax.
+math:
+  mathjax:
+    enable: false
+  katex:
+    enable: false

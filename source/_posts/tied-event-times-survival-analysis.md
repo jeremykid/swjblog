@@ -26,9 +26,9 @@ In clinical datasets, ties are common when follow-up is recorded in integer days
 
 Suppose two prediction episodes have
 
-\[
+$$
 T_A = T_B = 10,\qquad \delta_A=\delta_B=1,
-\]
+$$
 
 meaning both experience the endpoint on day 10.
 
@@ -41,7 +41,7 @@ This is an **event-time tie**. It is different from:
 
 These distinctions matter because each creates a different statistical problem.
 
-A further edge case is an **event–censor tie**, where one patient has an event and another is censored at the same recorded time. In the usual Cox risk-set convention, a patient censored at time \(t\) remains in \(R(t)\) for failures at \(t\); this effectively places events before censoring at the same recorded time. Evaluation metrics may use different comparability conventions, so event–censor ties should be checked separately rather than treated as ordinary event–event ties.
+A further edge case is an **event–censor tie**, where one patient has an event and another is censored at the same recorded time. In the usual Cox risk-set convention, a patient censored at time $t$ remains in $R(t)$ for failures at $t$; this effectively places events before censoring at the same recorded time. Evaluation metrics may use different comparability conventions, so event–censor ties should be checked separately rather than treated as ordinary event–event ties.
 
 A useful question is not simply *“Does my dataset contain ties?”* but rather:
 
@@ -67,32 +67,32 @@ This becomes important for models whose objective depends on the order in which 
 
 For a Cox proportional hazards model, let
 
-\[
+$$
 \eta_i = f(x_i)
-\]
+$$
 
-be the log-risk score. With a unique event time \(T_i\), the partial likelihood compares the patient who experiences the event with everyone still at risk:
+be the log-risk score. With a unique event time $T_i$, the partial likelihood compares the patient who experiences the event with everyone still at risk:
 
-\[
+$$
 \frac{\exp(\eta_i)}
 {\sum_{j\in R(T_i)}\exp(\eta_j)}.
-\]
+$$
 
-Now suppose patients \(A\) and \(B\) both experience the event on day 10.
+Now suppose patients $A$ and $B$ both experience the event on day 10.
 
-The first event should be evaluated using the full risk set. For the second event, however, the first patient should already have left that set. The problem is that the recorded data do not tell us whether \(A\) or \(B\) occurred first.
+The first event should be evaluated using the full risk set. For the second event, however, the first patient should already have left that set. The problem is that the recorded data do not tell us whether $A$ or $B$ occurred first.
 
 That is the Cox tie problem.
 
 ### Breslow, Efron, and Exact
 
-Let \(D_t\) be the set of \(d_t\) events observed at time \(t\), and define
+Let $D_t$ be the set of $d_t$ events observed at time $t$, and define
 
-\[
+$$
 S_R=\sum_{j\in R_t}\exp(\eta_j),
 \qquad
 S_D=\sum_{i\in D_t}\exp(\eta_i).
-\]
+$$
 
 The three standard approaches in `survival::coxph()` are:
 
@@ -104,27 +104,26 @@ The three standard approaches in `survival::coxph()` are:
 
 For two tied events, Breslow uses denominators
 
-\[
+$$
 S_R,\qquad S_R,
-\]
+$$
 
 whereas Efron uses
 
-\[
+$$
 S_R,\qquad S_R-\frac{1}{2}S_D.
-\]
+$$
 
-For \(d_t\) tied events, Efron contributes
+For $d_t$ tied events, Efron contributes
 
-\[
+$$
 \ell_t^{\mathrm{Efron}} =
 \sum_{i\in D_t}\eta_i
--
-\sum_{l=0}^{d_t-1}
+-\sum_{l=0}^{d_t-1}
 \log\left(
 S_R-\frac{l}{d_t}S_D
 \right).
-\]
+$$
 
 The R `survival` documentation uses Efron as the default for ordinary single-state Cox models and notes that exact partial likelihood can become computationally expensive when many subjects are tied at one time point. A multistate Cox model is an important exception: in `survival` 3.8-11, the default is Breslow because a defensible general extension of Efron is more complicated, and the current Efron implementation is effectively limited to tied transitions of the same type.
 
@@ -134,15 +133,15 @@ Importantly, **“exact” does not mean better prediction**. It means a more ex
 
 DeepSurv replaces the linear Cox predictor
 
-\[
+$$
 x^\top\beta
-\]
+$$
 
 with a neural network
 
-\[
+$$
 f_\theta(x),
-\]
+$$
 
 but the objective is still based on the Cox partial likelihood.
 
@@ -162,31 +161,30 @@ A pure ranking objective asks whether one patient should be assigned higher risk
 
 For example, a comparable-pair set may be defined as
 
-\[
-\mathcal P
-=
+$$
+\mathcal P =
 \{(i,j): T_i<T_j,\ \delta_i=1\}.
-\]
+$$
 
 If
 
-\[
+$$
 T_A=10,\qquad T_B=20,
-\]
+$$
 
 then the observation supports the ordering
 
-\[
+$$
 \text{risk}(A)>\text{risk}(B).
-\]
+$$
 
 But if
 
-\[
+$$
 T_A=T_B=10,
-\]
+$$
 
-the observed data do not tell us whether \(A\) should rank above \(B\) or vice versa.
+the observed data do not tell us whether $A$ should rank above $B$ or vice versa.
 
 The clean statistical response is therefore usually **not to create a strict pairwise constraint between them**.
 
@@ -196,15 +194,14 @@ This is conceptually different from Efron. Efron approximates an unknown orderin
 
 DeepHit is a useful example because its objective combines two components:
 
-\[
-\mathcal L
-=
+$$
+\mathcal L =
 \mathcal L_{\text{likelihood}}
 +
 \mathcal L_{\text{ranking}}.
-\]
+$$
 
-The original paper defines acceptable ranking pairs using a strict time inequality \(s_i<s_j\). Equal observed times therefore do not define an ordered acceptable pair for the ranking term.
+The original paper defines acceptable ranking pairs using a strict time inequality $s_i<s_j$. Equal observed times therefore do not define an ordered acceptable pair for the ranking term.
 
 At the same time, DeepHit models a discrete event-time distribution, so multiple patients occupying the same time bin are perfectly valid observations for its likelihood component.
 
@@ -218,7 +215,7 @@ Survival SVMs provide another ranking example. Conceptually, equal event times d
 
 The simplest way to see this is to compare the training objectives.
 
-| Model family | Typical objective | What does \(T_A=T_B\) mean? | Cox-style tie correction? |
+| Model family | Typical objective | What does $T_A=T_B$ mean? | Cox-style tie correction? |
 |---|---|---|---|
 | Cox PH / DeepSurv | Cox partial likelihood | Risk-set departure order is ambiguous | **A tie method must be specified** |
 | Pairwise ranking / Survival SVM | Ranking loss | No strict order between equal-time events | **No** |
@@ -231,18 +228,17 @@ The simplest way to see this is to compare the training objectives.
 
 For a Weibull model, an uncensored patient contributes a density term and a censored patient contributes a survival term:
 
-\[
-L_i
-=
+$$
+L_i =
 f(T_i\mid x_i)^{\delta_i}
 S(T_i\mid x_i)^{1-\delta_i}.
-\]
+$$
 
 If two patients both experience an event at time 10, the likelihood simply contains
 
-\[
+$$
 f(10\mid x_A)\,f(10\mid x_B).
-\]
+$$
 
 There is no unknown risk-set departure order to approximate.
 
@@ -258,11 +254,11 @@ This distinction is useful:
 
 Suppose five patients are still at risk immediately before day 10:
 
-\[
+$$
 R(10)=\{A,B,C,D,E\}.
-\]
+$$
 
-Patients \(A\) and \(B\) both experience heart failure on day 10.
+Patients $A$ and $B$ both experience heart failure on day 10.
 
 ### Cox model
 
@@ -276,17 +272,17 @@ The model must evaluate two event contributions while knowing only that both occ
 
 The data support statements such as
 
-\[
+$$
 T_A=10<T_C=30
-\]
+$$
 
-and therefore an ordering between \(A\) and \(C\).
+and therefore an ordering between $A$ and $C$.
 
-They do **not** support a strict ordering between \(A\) and \(B\), because
+They do **not** support a strict ordering between $A$ and $B$, because
 
-\[
+$$
 T_A=T_B.
-\]
+$$
 
 ### Weibull or discrete-time model
 
