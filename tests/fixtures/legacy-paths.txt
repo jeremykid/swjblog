@@ -1,0 +1,33 @@
+/
+/about/
+/archives/
+/categories/
+/tags/
+/Deep learning.html
+/Reinforcement-Learning-Note-1.html
+/2020/06/23/Survival-Analysis-note-0/
+/2018/07/02/中国剩余定理/
+/2019/03/14/partial-plots/
+/2019/02/26/permutation-Importance/
+/2019/02/21/Use-Cases-for-Model-Insights/
+/2018/12/14/Docker-—-从入门到实践/
+/2019/01/22/加拿大发现外星信号有感/
+/2018/12/14/Reinforcement-Learning-Note-1/
+/2018/07/30/数学手册/
+/2018/05/24/Install-python-library/
+/2018/07/29/cs231n-note-6/
+/2018/07/16/cs231n-note-5/
+/2018/06/23/有趣的生物灵魂/
+/2018/06/18/cs231n-note-4/
+/2018/06/04/cs231n-note-3/
+/2018/06/04/sequelize-cli-NodeJs-Learning-Notes/
+/2018/05/21/cs231n-note-2/
+/2018/05/20/cs231n-note-1/
+/2018/05/20/Machine-Learning-Notes-1/
+/2017/06/13/Docker-Notes/
+/2016/08/06/Learn-PyMOL-for-Biology-Research-1/
+/2016/08/02/Machine-Learning-Project-1-Weijie-Sun/
+/2016/07/27/My Ionic-Hybrid Experience[1]/
+/2016/07/18/Algorithm/
+/2016/07/18/HIV-project/
+/2016/07/15/hello-world/
