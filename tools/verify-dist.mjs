@@ -1,5 +1,6 @@
 import { readFile, stat } from 'node:fs/promises';
 import { extname, normalize } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const publicRoot = 'public';
 const siteOrigin = 'https://jeremykid.github.io';
@@ -109,4 +110,23 @@ for (const href of new Set(hrefs)) {
   await requireOutput(path);
 }
 
-console.log(`generated-site contract: ok (${legacyPaths.length} legacy paths, ${mathContainerCount} formulas)`);
+// The pre-migration site contained profile and presentation content absent from
+// the old Hexo source. Checking routes alone did not catch that data loss.
+const legacyProfile = JSON.parse(await readFile('tests/fixtures/legacy-profile.json', 'utf8'));
+for (const [path, expected] of Object.entries(legacyProfile.pages)) {
+  const page = await readFile(`${publicRoot}/${path}`, 'utf8');
+  if (!page.includes(expected.html)) {
+    throw new Error(`Historical profile content changed or disappeared: ${path}`);
+  }
+  for (const href of expected.links) {
+    const url = new URL(href.replaceAll('&amp;', '&'), `${siteOrigin}/${path}`);
+    if (url.origin === siteOrigin) await requireOutput(outputPath(url.pathname));
+  }
+}
+for (const [path, expectedHash] of Object.entries(legacyProfile.assets)) {
+  const content = await readFile(`${publicRoot}/${path}`);
+  if (createHash('sha256').update(content).digest('hex') !== expectedHash) {
+    throw new Error(`Historical image changed or disappeared: ${path}`);
+  }
+}
+console.log(`generated-site contract: ok (${legacyPaths.length} legacy paths, ${mathContainerCount} formulas, restored profile/presentations and ${Object.keys(legacyProfile.assets).length} images)`);
